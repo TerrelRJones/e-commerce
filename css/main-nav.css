@@ -1,0 +1,72 @@
+.header__container{
+    background-color: whitesmoke;
+    height: 100px;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0px 7px 12px -4px rgba(0,0,0,0.6);
+    /* padding: 10px; */
+}
+.main-nav{
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: relative;
+padding: 30px 10px;
+}
+.main-nav__logo{
+    font-size: 50px;
+    color: green;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+/* .main-nav__links{
+    display: flex;
+} */
+.main-nav__link-ul{
+    display: flex;
+    font-size: 20px;
+    color: green;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+.main-nav__link{
+    text-decoration: none;
+    margin-right: 20px;
+    color: grey;
+}
+.main-nav__link--active{
+    text-decoration: none;
+    margin-right: 20px;
+    color: green;
+    font-weight: 800;
+}
+.main-nav__link:hover{
+    color: green;
+    font-weight: 800;
+}
+.main-nav__cart-icon{
+    position: relative;
+    right: 0;
+    margin-right: 40px;
+    font-size: 30px;
+    color: green;
+    cursor: pointer;
+    transition: color .3s ease-in-out;
+}
+.cart-icon-notification{
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    font-size: 1rem;
+    color: white;
+        font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    
+}
