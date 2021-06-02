@@ -3,28 +3,28 @@ let products = [
     {
         brand:'Kajuta',
         name:'Night Lamp',
-        price:'49.99',
+        price:49.99,
         description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero!  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         url:'https://d27bba62iw3ft5.cloudfront.net/spree/images/52402/medium/LUMIPI-01020170221-14047-14bsghb.jpg?1542722387'
     },
     {
         brand:'Grovemade',
         name:'Pen',
-        price:'24.99',
+        price: 24.99,
         description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero!Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE1MT_Uy25J0ddHaY98n4F6cDKsdZXZGYq7haRxN39wN1bG-osSIplV0qWD_t1H6nAvgbtbwk&usqp=CAc',
     },
     {
         brand:'Carpio',
         name:'Ergo Mouse Wrist Rest',
-        price:'39.99',
+        price: 39.99,
         description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero!  Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         url:'https://m.media-amazon.com/images/I/7190-vkqLYL._AC_SS450_.jpg'
     },
     {
         brand:'Rell\'s Greenhouse',
         name:'12" Live Snake Plant in Pot',
-        price:'25.99',
+        price: 25.99,
         description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero!  Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         url:'https://secure.img1-fg.wfcdn.com/im/84728836/resize-h800%5Ecompr-r85/1248/124813350/12%2522+Live+Snake+Plant+in+Pot.jpg'
     }
@@ -122,39 +122,35 @@ function addToCart(x){
    cart.push(x);
 
 
-    console.log(cart);
 
-       cart.map((items) => {
    let product = document.querySelector('.product');
    let productDetail = document.createElement('div');
 
         product.appendChild(productDetail);
         productDetail.innerHTML = `<div class="cart-card__item-info">
         <div class="cart-card__qty-number">2</div>
-        <div class="cart-card__item">${items.brand}</div>
-        <div class="cart-card__item">${items.name}</div>
-        <div class="cart-card__price">$${items.price}</div>
+        <div class="cart-card__item">${x.brand}</div>
+        <div class="cart-card__item">${x.name}</div>
+        <div class="cart-card__price">$${x.price}</div>
         <button class="cart-card__trash-btn">
             <i class="icon fas fa-trash-alt"></i>
         </button>
-        </div>`})
+        </div>`
 
-    // let itemTotal = cart.length;
-    // console.log('Items: ' + itemTotal);
+
+             let total = document.querySelector('.total');
+             let totalPrice = document.createElement('div');
+
+             total.appendChild(totalPrice);
+             totalPrice.innerHTML = `<h3 class="total-price__numbers">$120.98</h3>`
+
+        // console.log(cart);
+
+        // let itemTotal = cart.length;
+        // console.log('Items: ' + itemTotal);
     
+
 }
-
-
-// let total = cart.reduce(addTotal);
-
-// adding total of cart
-//  function addTotal(total, cart) {
-//      return total + cart;
-//  }
-
-// console.log('Total price: ' + total);
-
-
 
 
 // Shopping Cart pop-up
@@ -191,7 +187,7 @@ shoppingCart.innerHTML = `<div class="cart-card__title">
 <div class="cart-card__bottom">
 <div class="cart-card__total-price">
     <h3 class="total-price">Total:</h3>
-    <h3 class="total-price__numbers">$139.97</h3>
+    <div class="total"></div>
 </div>
 <button class="order-btn">order</button>
 </div>`
