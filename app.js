@@ -22,8 +22,8 @@ let products = [
         url:'https://m.media-amazon.com/images/I/7190-vkqLYL._AC_SS450_.jpg'
     },
     {
-        brand:'Rell\'s Greenhouse',
-        name:'12" Live Snake Plant in Pot',
+        brand:'Rells Greenhouse',
+        name:'12inch Live Snake Plant in Pot',
         price: 25.99,
         description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero!  Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         url:'https://secure.img1-fg.wfcdn.com/im/84728836/resize-h800%5Ecompr-r85/1248/124813350/12%2522+Live+Snake+Plant+in+Pot.jpg'
