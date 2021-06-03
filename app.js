@@ -57,7 +57,7 @@ mainNav.innerHTML = `<nav class="main-nav">
     <div class="main-nav__cart-icon">
         <i class="fas fa-shopping-cart">
             <div class="cart-icon-notification">
-                0
+                
             </div>
         </i>
     </div>
@@ -92,9 +92,9 @@ products.map((item) => {
             <div class="card__quantity">Quantity</div>
             <div class="card__quantity-counter">
                 <div class="card__counter">
-                    <div class="counter-minus">-</div>
+                    <div class="counter-minus"><i class="minus fa fa-minus" aria-hidden="true"></i></div>
                     <div class="counter-number">${quantity}</div>
-                    <div class="counter-plus">+</div>
+                    <div class="counter-plus"><i class="plus fa fa-plus" aria-hidden="true"></i></div>
                 </div>
             </div>
         </div>
@@ -122,7 +122,6 @@ function addToCart(x){
    cart.push(x);
 
 
-
    let product = document.querySelector('.product');
    let productDetail = document.createElement('div');
 
@@ -137,17 +136,33 @@ function addToCart(x){
         </button>
         </div>`
 
+        // Empty array to catch prices
+        let priceArray = [];
 
-             let total = document.querySelector('.total');
-             let totalPrice = document.createElement('div');
 
-             total.appendChild(totalPrice);
-             totalPrice.innerHTML = `<h3 class="total-price__numbers">$120.98</h3>`
+            // pulling the price out of the priceArray
+            cart.forEach(priceNum => {
+                priceArray.push(priceNum.price);
 
-        // console.log(cart);
+         // adding the sum of prices in array
+             let sum = priceArray.reduce((a, b) => {
+                 return a += b;
+             });
 
-        // let itemTotal = cart.length;
-        // console.log('Items: ' + itemTotal);
+
+          console.log(`Total: ${sum}`);
+
+    })
+
+let total = document.querySelector('.total');
+let totalPrice = document.createElement('div');
+
+total.appendChild(totalPrice);
+totalPrice.innerHTML = `<h3 class="total-price__numbers"></h3>`
+
+
+        let itemTotal = cart.length;
+        console.log('Items: ' + itemTotal);
     
 
 }

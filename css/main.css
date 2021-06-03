@@ -112,6 +112,9 @@ background: linear-gradient(135deg, rgba(51,82,136,1) 0%, rgba(51,82,150,1) 100%
     margin-bottom: 1em;
 }
 .counter-minus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: .5em;
     height: 20px;
     width: 20px;
@@ -121,6 +124,10 @@ background: linear-gradient(135deg, rgba(51,82,136,1) 0%, rgba(51,82,150,1) 100%
     color: gray;
     cursor: pointer;
 }
+.minus, .plus{
+    font-size: 15px;
+    color:gray;
+}
 .counter-number{
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
@@ -129,6 +136,9 @@ background: linear-gradient(135deg, rgba(51,82,136,1) 0%, rgba(51,82,150,1) 100%
     color: grey;
 }
 .counter-plus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-right: .5em;
     height: 20px;
     width: 20px;
