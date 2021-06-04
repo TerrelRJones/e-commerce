@@ -30,6 +30,8 @@ let products = [
     }
 ];
 
+let itemTotal = 0;
+
 //Header Navigation
 let header = document.querySelector('.header__container');
 let mainNav = document.createElement('nav');
@@ -57,7 +59,7 @@ mainNav.innerHTML = `<nav class="main-nav">
     <div class="main-nav__cart-icon">
         <i class="fas fa-shopping-cart">
             <div class="cart-icon-notification">
-                
+                ${itemTotal}
             </div>
         </i>
     </div>
@@ -116,6 +118,7 @@ products.map((item) => {
 
 // Add product to cart
 let cart = [];
+let sum = 0;
 
 function addToCart(x){
     
@@ -145,23 +148,24 @@ function addToCart(x){
                 priceArray.push(priceNum.price);
 
          // adding the sum of prices in array
-             let sum = priceArray.reduce((a, b) => {
+             sum = priceArray.reduce((a, b) => {
                  return a += b;
              });
 
 
-          console.log(`Total: ${sum}`);
+          console.log('Total: ' + sum);
 
     })
+
 
 let total = document.querySelector('.total');
 let totalPrice = document.createElement('div');
 
 total.appendChild(totalPrice);
-totalPrice.innerHTML = `<h3 class="total-price__numbers"></h3>`
+totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`
 
 
-        let itemTotal = cart.length;
+        itemTotal = cart.length;
         console.log('Items: ' + itemTotal);
     
 
