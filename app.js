@@ -124,6 +124,7 @@ function addToCart(x){
     
    cart.push(x);
 
+   console.log(cart);
 
    let product = document.querySelector('.product');
    let productDetail = document.createElement('div');
@@ -134,14 +135,14 @@ function addToCart(x){
         <div class="cart-card__item">${x.brand}</div>
         <div class="cart-card__item">${x.name}</div>
         <div class="cart-card__price">$${x.price}</div>
-        <button class="cart-card__trash-btn">
+        <button class="cart-card__trash-btn" onclick='deleteFromCart(${JSON.stringify(x)})'>
             <i class="icon fas fa-trash-alt"></i>
         </button>
         </div>`
 
+
         // Empty array to catch prices
         let priceArray = [];
-
 
             // pulling the price out of the priceArray
             cart.forEach(priceNum => {
@@ -151,9 +152,6 @@ function addToCart(x){
              sum = priceArray.reduce((a, b) => {
                  return a += b;
              });
-
-
-          console.log('Total: ' + sum);
 
     })
 
@@ -165,11 +163,23 @@ total.appendChild(totalPrice);
 totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`
 
 
-        itemTotal = cart.length;
-        console.log('Items: ' + itemTotal);
+        // itemTotal = cart.length;
+        // console.log('Items: ' + itemTotal);
     
+        
+        
+    }
+    
+    // Remove item from cart
+    function deleteFromCart(product){
+        // console.log(product); 
+        // deleteItemIndex = cart.indexOf(product);
 
-}
+         cart = cart.filter(products => products.name != product.name);
+        
+        console.log(cart); 
+
+    };
 
 
 // Shopping Cart pop-up
@@ -208,7 +218,7 @@ shoppingCart.innerHTML = `<div class="cart-card__title">
     <h3 class="total-price">Total:</h3>
     <div class="total"></div>
 </div>
-<button class="order-btn">order</button>
+<button class="order-btn"">order</button>
 </div>`
 
 
