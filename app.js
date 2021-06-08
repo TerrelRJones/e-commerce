@@ -31,6 +31,7 @@ let products = [
 ];
 
 let itemTotal = 0;
+let cart = [];
 
 //Header Navigation
 let header = document.querySelector('.header__container');
@@ -68,7 +69,55 @@ mainNav.innerHTML = `<nav class="main-nav">
 
 let quantity = 1;
 
+// Remove item from cart
+function deleteFromCart(item){
+    
+    cart = cart.filter((product) => JSON.stringify(item) !== JSON.stringify(product));
+    
+    console.log(cart); 
+    mapCartItems();
+};
+
+
+function mapCartItems() {
+    let product = document.querySelector('.product');
+    product.innerHTML = "";
+    
+    cart.map((item) => {
+        let productDetail = document.createElement('div');
+    
+        productDetail.innerHTML = `<div class="cart-card__item-info">
+        <div class="cart-card__qty-number">2</div>
+        <div class="cart-card__item">${item.brand}</div>
+        <div class="cart-card__item">${item.name}</div>
+        <div class="cart-card__price">$${item.price}</div>
+        <button class="cart-card__trash-btn" onclick='deleteFromCart(${JSON.stringify(item)})'>
+        <i class="icon fas fa-trash-alt"></i>
+        </button>
+        </div>`;
+        product.appendChild(productDetail);
+    });
+    
+};
+
+function addToCart(item){
+    
+    cart.push(item);
+    mapCartItems();
+    console.log(cart);
+    
+    
+    // let total = document.querySelector('.total');
+    // let totalPrice = document.createElement('div');
+    
+    // total.appendChild(totalPrice);
+    // totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`
+    
+    
+};
+
 // Display all products
+function mapProducts() {
 products.map((item) => {
     
     let container = document.querySelector('.container');
@@ -114,73 +163,9 @@ products.map((item) => {
     </div>
 </div>`
 })
+};
 
-
-// Add product to cart
-let cart = [];
-let sum = 0;
-
-function addToCart(x){
-    
-   cart.push(x);
-
-   console.log(cart);
-
-   let product = document.querySelector('.product');
-   let productDetail = document.createElement('div');
-
-        product.appendChild(productDetail);
-        productDetail.innerHTML = `<div class="cart-card__item-info">
-        <div class="cart-card__qty-number">2</div>
-        <div class="cart-card__item">${x.brand}</div>
-        <div class="cart-card__item">${x.name}</div>
-        <div class="cart-card__price">$${x.price}</div>
-        <button class="cart-card__trash-btn" onclick='deleteFromCart(${JSON.stringify(x)})'>
-            <i class="icon fas fa-trash-alt"></i>
-        </button>
-        </div>`
-
-
-        // Empty array to catch prices
-        let priceArray = [];
-
-            // pulling the price out of the priceArray
-            cart.forEach(priceNum => {
-                priceArray.push(priceNum.price);
-
-         // adding the sum of prices in array
-             sum = priceArray.reduce((a, b) => {
-                 return a += b;
-             });
-
-    })
-
-
-let total = document.querySelector('.total');
-let totalPrice = document.createElement('div');
-
-total.appendChild(totalPrice);
-totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`
-
-
-        // itemTotal = cart.length;
-        // console.log('Items: ' + itemTotal);
-    
-        
-        
-    }
-    
-    // Remove item from cart
-    function deleteFromCart(product){
-        // console.log(product); 
-        // deleteItemIndex = cart.indexOf(product);
-
-         cart = cart.filter(products => products.name != product.name);
-        
-        console.log(cart); 
-
-    };
-
+mapProducts();
 
 // Shopping Cart pop-up
 let bottom = document.querySelector('.bottom__container');
