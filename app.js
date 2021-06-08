@@ -30,6 +30,7 @@ let products = [
     }
 ];
 
+
 let itemTotal = 0;
 let cart = [];
 
@@ -58,10 +59,7 @@ mainNav.innerHTML = `<nav class="main-nav">
         </li> 
 </div>
     <div class="main-nav__cart-icon">
-        <i class="fas fa-shopping-cart">
-            <div class="cart-icon-notification">
-                ${itemTotal}
-            </div>
+        <i id="cart-icon" class="fas fa-shopping-cart">
         </i>
     </div>
 </nav>`;
@@ -76,6 +74,8 @@ function deleteFromCart(item){
     
     console.log(cart); 
     mapCartItems();
+    totalPrice();
+    itemNotification();
 };
 
 
@@ -104,17 +104,42 @@ function addToCart(item){
     
     cart.push(item);
     mapCartItems();
-    console.log(cart);
+    totalPrice();
+    itemNotification();
     
-    
-    // let total = document.querySelector('.total');
-    // let totalPrice = document.createElement('div');
-    
-    // total.appendChild(totalPrice);
-    // totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`
-    
-    
+    console.log(cart);  
 };
+
+function totalPrice() {
+    let total = document.querySelector('.total');
+    total.innerHTML = "";
+
+    let totalPrice = document.createElement('div');
+    
+    let sum = cart.reduce((cartTotal, item) => {
+        return item.price + cartTotal;
+    }, 0)
+  
+    totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`
+    total.appendChild(totalPrice);
+};
+
+function itemNotification() {
+    itemTotal = cart.length;
+    
+    let notification = document.getElementById('cart-icon');
+    // notification.innerHTML = "";
+
+    let number = document.createElement('div');
+    notification.appendChild(number);
+    number.innerHTML = `<div class="cart-icon-notification">
+    ${itemTotal}</div>`;
+
+    notification.appendChild(number);
+
+}
+
+
 
 // Display all products
 function mapProducts() {
@@ -164,6 +189,8 @@ products.map((item) => {
 </div>`
 })
 };
+
+
 
 mapProducts();
 
