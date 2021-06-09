@@ -31,7 +31,7 @@ let products = [
 ];
 
 
-let itemTotal = 0;
+let productNumbers = 0;
 let cart = [];
 
 //Header Navigation
@@ -60,6 +60,7 @@ mainNav.innerHTML = `<nav class="main-nav">
 </div>
     <div class="main-nav__cart-icon">
         <i id="cart-icon" class="fas fa-shopping-cart">
+        <div class="cart-icon-notification">0</div>
         </i>
     </div>
 </nav>`;
@@ -75,7 +76,7 @@ function deleteFromCart(item){
     console.log(cart); 
     mapCartItems();
     totalPrice();
-    itemNotification();
+    // itemNotification();
 };
 
 
@@ -88,7 +89,7 @@ function mapCartItems() {
         productDetail.innerHTML = "";
     
         productDetail.innerHTML = `<div class="cart-card__item-info">
-        <div class="cart-card__qty-number">2</div>
+        <div class="cart-card__qty-number">0</div>
         <div class="cart-card__item">${item.brand}</div>
         <div class="cart-card__item">${item.name}</div>
         <div class="cart-card__price">$${item.price}</div>
@@ -97,47 +98,92 @@ function mapCartItems() {
         </button>
         </div>`;
         product.appendChild(productDetail);
+        cartNumbers(`${JSON.stringify(item)}`);
     });
+    
     
 };
 
 let itemQuantity =0;
 
-// Quantity Selector
-function addQuantity() {
+// // Quantity Selector
+// function addQuantity() {
 
-    itemQuantity++;
+//     itemQuantity++;
 
-    let counter = document.querySelector('.counter');
-    counter.innerHTML = "";
+//     let counter = document.querySelector('.counter');
+//     counter.innerHTML = "";
 
-    let counterNumber = document.createElement('div');
-    counter.appendChild(counterNumber);
+//     let counterNumber = document.createElement('div');
+//     counter.appendChild(counterNumber);
 
-    counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
+//     counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
     
-    // console.log(itemQuantity);
-};
+//     console.log(itemQuantity);
+// };
 
-function subtractQuantity() {
 
-    itemQuantity--;
+// function subtractQuantity() {
 
-    let counter = document.querySelector('.counter');
-    counter.innerHTML = "";
+//     itemQuantity--;
 
-    let counterNumber = document.createElement('div');
-    counter.appendChild(counterNumber);
+//     let counter = document.querySelector('.counter');
+//     counter.innerHTML = "";
 
-    counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
+//     let counterNumber = document.createElement('div');
+//     counter.appendChild(counterNumber);
 
-    if (itemQuantity === 0) {
-        document.querySelector('.counter-minus').setAttribute("disabled", "disabled");
+//     // counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
+
+//     if (itemQuantity === 0) {
+//         document.querySelector('.counter-minus').setAttribute("disabled", "disabled");
+//     }
+
+    
+//     // console.log(itemQuantity);
+// };
+
+
+function cartNumbers(product) {
+    let productNumbers = localStorage.getItem('cartNumbers');
+    
+    productNumbers = parseInt(productNumbers);
+
+    if ( productNumbers ) {
+        localStorage.setItem('cartNumbers', productNumbers + 1);
+        // document.querySelector('.cart-card__qty-number').textContent = productNumbers + 1;
+
+    } else {
+        localStorage.setItem('cartNumbers', 1);
+        document.querySelector('.cart-card__qty-number').textContent = 1;
     }
+    setItems(product);
 
+}
+
+function setItems(product) {
+    console.log('Inside of Items')
+    console.log(`The product is: ${product}`)
+
+    localStorage.setItem("productsInCart", product)
+}
+
+function itemNotification() {
+    productNumbers = localStorage.getItem('cartNumbers');
+
+    if ( productNumbers ) {
+        document.querySelector('.cart-icon-notification').textContent = productNumbers;
+
+    } else {
+        document.querySelector('.cart-icon-notification').textContent = 0;
+
+    }
     
-    // console.log(itemQuantity);
-};
+
+}
+
+
+
 
 function addToCart(item){
     
@@ -146,6 +192,7 @@ function addToCart(item){
     totalPrice();
     itemNotification();
     
+
     console.log(cart);  
 };
 
@@ -162,21 +209,6 @@ function totalPrice() {
     totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`
     total.appendChild(totalPrice);
 };
-
-function itemNotification() {
-    itemTotal = cart.length;
-    
-    let notification = document.getElementById('cart-icon');
-    // notification.innerHTML = "";
-
-    let number = document.createElement('div');
-    notification.appendChild(number);
-    number.innerHTML = `<div class="cart-icon-notification">
-    ${itemTotal}</div>`;
-
-    notification.appendChild(number);
-
-}
 
 
 
@@ -226,13 +258,16 @@ products.map((item) => {
         </div>
         
     </div>
-</div>`
+    </div>`
+    cartNumbers(`${JSON.stringify(item)}`);
 })
+
 };
 
 
 
 mapProducts();
+itemNotification();
 
 // Shopping Cart pop-up
 let bottom = document.querySelector('.bottom__container');
