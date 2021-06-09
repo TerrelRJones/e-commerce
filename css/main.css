@@ -123,6 +123,7 @@ background: linear-gradient(135deg, rgba(51,82,136,1) 0%, rgba(51,82,150,1) 100%
     text-align: center;
     color: gray;
     cursor: pointer;
+    border-style: none;
 }
 .minus, .plus{
     font-size: 15px;
@@ -147,6 +148,7 @@ background: linear-gradient(135deg, rgba(51,82,136,1) 0%, rgba(51,82,150,1) 100%
     text-align: center;
     color: gray;
     cursor: pointer;
+    border-style: none;
 }
 .card_description{
     font-family: 'Roboto', sans-serif;

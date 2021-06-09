@@ -23,7 +23,7 @@ let products = [
     },
     {
         brand:'Rells Greenhouse',
-        name:'12inch Live Snake Plant in Pot',
+        name:'12" Live Snake Plant in Pot',
         price: 25.99,
         description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero!  Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         url:'https://secure.img1-fg.wfcdn.com/im/84728836/resize-h800%5Ecompr-r85/1248/124813350/12%2522+Live+Snake+Plant+in+Pot.jpg'
@@ -85,6 +85,7 @@ function mapCartItems() {
     
     cart.map((item) => {
         let productDetail = document.createElement('div');
+        productDetail.innerHTML = "";
     
         productDetail.innerHTML = `<div class="cart-card__item-info">
         <div class="cart-card__qty-number">2</div>
@@ -98,6 +99,44 @@ function mapCartItems() {
         product.appendChild(productDetail);
     });
     
+};
+
+let itemQuantity =0;
+
+// Quantity Selector
+function addQuantity() {
+
+    itemQuantity++;
+
+    let counter = document.querySelector('.counter');
+    counter.innerHTML = "";
+
+    let counterNumber = document.createElement('div');
+    counter.appendChild(counterNumber);
+
+    counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
+    
+    // console.log(itemQuantity);
+};
+
+function subtractQuantity() {
+
+    itemQuantity--;
+
+    let counter = document.querySelector('.counter');
+    counter.innerHTML = "";
+
+    let counterNumber = document.createElement('div');
+    counter.appendChild(counterNumber);
+
+    counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
+
+    if (itemQuantity === 0) {
+        document.querySelector('.counter-minus').setAttribute("disabled", "disabled");
+    }
+
+    
+    // console.log(itemQuantity);
 };
 
 function addToCart(item){
@@ -147,6 +186,7 @@ products.map((item) => {
     
     let container = document.querySelector('.container');
     let card = document.createElement('div');
+    card.innerHTML = "";
 
     container.appendChild(card);
     card.innerHTML = `        <div class="card__container">
@@ -168,9 +208,9 @@ products.map((item) => {
             <div class="card__quantity">Quantity</div>
             <div class="card__quantity-counter">
                 <div class="card__counter">
-                    <div class="counter-minus"><i class="minus fa fa-minus" aria-hidden="true"></i></div>
-                    <div class="counter-number">${quantity}</div>
-                    <div class="counter-plus"><i class="plus fa fa-plus" aria-hidden="true"></i></div>
+                    <button class="counter-minus disabled" type="button" onclick="subtractQuantity()"><i class="minus fa fa-minus" aria-hidden="true"></i></button>
+                   <div class="counter"></div>        
+                    <button class="counter-plus" type="button" onclick="addQuantity()"><i class="plus fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
