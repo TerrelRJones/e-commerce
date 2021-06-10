@@ -34,7 +34,7 @@ let products = [
 let productNumbers = 0;
 let cart = [];
 
-//Header Navigation
+// // // // Header Navigation // // // // 
 let header = document.querySelector('.header__container');
 let mainNav = document.createElement('nav');
 
@@ -60,7 +60,7 @@ mainNav.innerHTML = `<nav class="main-nav">
 </div>
     <div class="main-nav__cart-icon">
         <i id="cart-icon" class="fas fa-shopping-cart">
-        <div class="cart-icon-notification">0</div>
+        <div class="cart-icon-notification" id="cart-icon-notification">0</div>
         </i>
     </div>
 </nav>`;
@@ -68,15 +68,16 @@ mainNav.innerHTML = `<nav class="main-nav">
 
 let quantity = 1;
 
-// Remove item from cart
+// // // // Remove item from cart // // // // 
 function deleteFromCart(item){
     
     cart = cart.filter((product) => JSON.stringify(item) !== JSON.stringify(product));
     
+    
     console.log(cart); 
     mapCartItems();
     totalPrice();
-    // itemNotification();
+    itemNotification();
 };
 
 
@@ -98,50 +99,50 @@ function mapCartItems() {
         </button>
         </div>`;
         product.appendChild(productDetail);
-        cartNumbers(`${JSON.stringify(item)}`);
+        cartNumbers(JSON.stringify(cart));
+
     });
     
     
 };
 
-let itemQuantity =0;
 
-// // Quantity Selector
-// function addQuantity() {
+// // // // Quantity Selector // //  // // 
 
-//     itemQuantity++;
+let itemQuantity =1;
+function addQuantity(product) {
 
-//     let counter = document.querySelector('.counter');
-//     counter.innerHTML = "";
+    cart.push(product)
+    console.log(cart);
 
-//     let counterNumber = document.createElement('div');
-//     counter.appendChild(counterNumber);
+    itemQuantity++;
 
-//     counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
+    document.querySelector('.counter').textContent = itemQuantity;
     
-//     console.log(itemQuantity);
-// };
+    console.log(itemQuantity);
+};
 
 
-// function subtractQuantity() {
+function subtractQuantity(product) {
 
-//     itemQuantity--;
+    cart = cart.filter((item) => JSON.stringify(item) !== JSON.stringify(product));
+    mapCartItems();
+    totalPrice();
+    itemNotification();
 
-//     let counter = document.querySelector('.counter');
-//     counter.innerHTML = "";
+    itemQuantity--;
 
-//     let counterNumber = document.createElement('div');
-//     counter.appendChild(counterNumber);
+    document.querySelector('.counter').textContent = itemQuantity;
 
-//     // counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
+    // counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
 
-//     if (itemQuantity === 0) {
-//         document.querySelector('.counter-minus').setAttribute("disabled", "disabled");
-//     }
+    if (itemQuantity === 1) {
+        document.querySelector('.counter-minus').setAttribute("disabled", "disabled");
+    }
 
     
-//     // console.log(itemQuantity);
-// };
+    console.log(itemQuantity);
+};
 
 
 function cartNumbers(product) {
@@ -151,7 +152,7 @@ function cartNumbers(product) {
 
     if ( productNumbers ) {
         localStorage.setItem('cartNumbers', productNumbers + 1);
-        // document.querySelector('.cart-card__qty-number').textContent = productNumbers + 1;
+        document.querySelector('.cart-card__qty-number').textContent = productNumbers + 1;
 
     } else {
         localStorage.setItem('cartNumbers', 1);
@@ -162,36 +163,44 @@ function cartNumbers(product) {
 }
 
 function setItems(product) {
-    console.log('Inside of Items')
-    console.log(`The product is: ${product}`)
+    // console.log('Inside of Items')
+    // console.log(`The product is: ${product}`)
 
     localStorage.setItem("productsInCart", product)
 }
+
+let removeIcon = document.getElementById('cart-icon-notification');
 
 function itemNotification() {
     productNumbers = localStorage.getItem('cartNumbers');
 
     if ( productNumbers ) {
+        removeIcon.classList.add('cart-icon-notification');
         document.querySelector('.cart-icon-notification').textContent = productNumbers;
 
     } else {
-        document.querySelector('.cart-icon-notification').textContent = 0;
+        document.querySelector('#cart-icon-notification').textContent = "";
+        removeIcon.classList.remove('cart-icon-notification');
 
     }
     
 
 }
 
+function resetQuantity() {
+    document.querySelector('.counter').textContent;
+}
 
 
 
 function addToCart(item){
     
+
     cart.push(item);
     mapCartItems();
     totalPrice();
     itemNotification();
-    
+    resetQuantity();
 
     console.log(cart);  
 };
@@ -210,15 +219,19 @@ function totalPrice() {
     total.appendChild(totalPrice);
 };
 
+function order(cart) {
+    localStorage.clear('cartNumbers');
+}
 
 
-// Display all products
+// // // // Display all products // // // // 
 function mapProducts() {
-products.map((item) => {
-    
     let container = document.querySelector('.container');
-    let card = document.createElement('div');
-    card.innerHTML = "";
+    
+    products.map((item) => {
+        
+        let card = document.createElement('div');
+        card.innerHTML = "";
 
     container.appendChild(card);
     card.innerHTML = `        <div class="card__container">
@@ -240,9 +253,9 @@ products.map((item) => {
             <div class="card__quantity">Quantity</div>
             <div class="card__quantity-counter">
                 <div class="card__counter">
-                    <button class="counter-minus disabled" type="button" onclick="subtractQuantity()"><i class="minus fa fa-minus" aria-hidden="true"></i></button>
-                   <div class="counter"></div>        
-                    <button class="counter-plus" type="button" onclick="addQuantity()"><i class="plus fa fa-plus" aria-hidden="true"></i></button>
+                    <button class="counter-minus disabled" type="button" onclick='subtractQuantity(${JSON.stringify(item)})'><i class="minus fa fa-minus" aria-hidden="true"></i></button>
+                   <div class="counter">1</div>        
+                    <button class="counter-plus" type="button" onclick='addQuantity(${JSON.stringify(item)})'><i class="plus fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
@@ -259,7 +272,7 @@ products.map((item) => {
         
     </div>
     </div>`
-    cartNumbers(`${JSON.stringify(item)}`);
+
 })
 
 };
@@ -269,7 +282,7 @@ products.map((item) => {
 mapProducts();
 itemNotification();
 
-// Shopping Cart pop-up
+// // // // Shopping Cart pop-up // // // // 
 let bottom = document.querySelector('.bottom__container');
 let shoppingCart = document.createElement('div');
 
@@ -305,7 +318,7 @@ shoppingCart.innerHTML = `<div class="cart-card__title">
     <h3 class="total-price">Total:</h3>
     <div class="total"></div>
 </div>
-<button class="order-btn"">order</button>
+<button class="order-btn"" onclick='order()'>order</button>
 </div>`
 
 

@@ -129,7 +129,7 @@ background: linear-gradient(135deg, rgba(51,82,136,1) 0%, rgba(51,82,150,1) 100%
     font-size: 15px;
     color:gray;
 }
-.counter-number{
+.counter{
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     font-size: .725em;
