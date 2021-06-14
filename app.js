@@ -73,7 +73,12 @@ function deleteFromCart(item){
     
     cart = cart.filter((product) => JSON.stringify(item) !== JSON.stringify(product));
     
-    
+    if ( productNumbers ) {
+        localStorage.removeItem('cartNumbers', productNumbers - 1);
+        document.querySelector('.cart-card__qty-number').textContent = productNumbers - 1;
+        localStorage.removeItem('productsInCart');
+    }
+
     console.log(cart); 
     mapCartItems();
     totalPrice();
@@ -85,16 +90,16 @@ function mapCartItems() {
     let product = document.querySelector('.product');
     product.innerHTML = "";
     
-    cart.map((item) => {
+    cart.map((item, index) => {
         let productDetail = document.createElement('div');
         productDetail.innerHTML = "";
     
         productDetail.innerHTML = `<div class="cart-card__item-info">
-        <div class="cart-card__qty-number">0</div>
+        <div class="cart-card__qty-number" id='${index}'}>0</div>
         <div class="cart-card__item">${item.brand}</div>
         <div class="cart-card__item">${item.name}</div>
         <div class="cart-card__price">$${item.price}</div>
-        <button class="cart-card__trash-btn" onclick='deleteFromCart(${JSON.stringify(item)})'>
+        <button class="cart-card__trash-btn" onclick='deleteFromCart(${JSON.stringify(item)}, ${index})'>
         <i class="icon fas fa-trash-alt"></i>
         </button>
         </div>`;
@@ -108,44 +113,48 @@ function mapCartItems() {
 
 
 // // // // Quantity Selector // //  // // 
+let itemQuantity = 1;
 
-let itemQuantity =1;
-function addQuantity(product) {
-
-    cart.push(product)
-    console.log(cart);
-
+function addQuantity(item, index) {
     itemQuantity++;
-
-    document.querySelector('.counter').textContent = itemQuantity;
     
-    console.log(itemQuantity);
+    let obj = item;
+    obj.quantity= itemQuantity;
+    console.log(obj, index)
+
+    cart.push(obj);
+
+    let counter = document.getElementById(index);
+    counter.innerHTML = itemQuantity;
+
 };
 
 
-function subtractQuantity(product) {
+function subtractQuantity(item, index) {
+    itemQuantity--;
 
-    cart = cart.filter((item) => JSON.stringify(item) !== JSON.stringify(product));
+    let obj = item;
+    obj.quantity= itemQuantity;
+    console.log(obj)
+    
+    cart = cart.filter((item) => JSON.stringify(item) !== JSON.stringify(obj));
+   
     mapCartItems();
     totalPrice();
     itemNotification();
 
-    itemQuantity--;
-
-    document.querySelector('.counter').textContent = itemQuantity;
-
-    // counterNumber.innerHTML = `<div class="counter-number">${itemQuantity}</div>`
 
     if (itemQuantity === 1) {
         document.querySelector('.counter-minus').setAttribute("disabled", "disabled");
     }
-
+    let counter = document.getElementById(index);
+    counter.innerHTML = itemQuantity;
     
     console.log(itemQuantity);
 };
 
 
-function cartNumbers(product) {
+function cartNumbers(product, index) {
     let productNumbers = localStorage.getItem('cartNumbers');
     
     productNumbers = parseInt(productNumbers);
@@ -171,6 +180,8 @@ function setItems(product) {
 
 let removeIcon = document.getElementById('cart-icon-notification');
 
+
+
 function itemNotification() {
     productNumbers = localStorage.getItem('cartNumbers');
 
@@ -188,7 +199,7 @@ function itemNotification() {
 }
 
 function resetQuantity() {
-    document.querySelector('.counter').textContent;
+    document.querySelector('.counter').textContent = 1;
 }
 
 
@@ -228,7 +239,7 @@ function order(cart) {
 function mapProducts() {
     let container = document.querySelector('.container');
     
-    products.map((item) => {
+    products.map((item, index) => {
         
         let card = document.createElement('div');
         card.innerHTML = "";
@@ -253,9 +264,9 @@ function mapProducts() {
             <div class="card__quantity">Quantity</div>
             <div class="card__quantity-counter">
                 <div class="card__counter">
-                    <button class="counter-minus disabled" type="button" onclick='subtractQuantity(${JSON.stringify(item)})'><i class="minus fa fa-minus" aria-hidden="true"></i></button>
-                   <div class="counter">1</div>        
-                    <button class="counter-plus" type="button" onclick='addQuantity(${JSON.stringify(item)})'><i class="plus fa fa-plus" aria-hidden="true"></i></button>
+                    <button class="counter-minus disabled" type="button" onclick='subtractQuantity(${JSON.stringify(item)}, ${index})'><i class="minus fa fa-minus" aria-hidden="true"></i></button>
+                   <div class="counter" id="${index}">1</div>        
+                    <button class="counter-plus" type="button" onclick='addQuantity(${JSON.stringify(item)}, ${index})'><i class="plus fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
