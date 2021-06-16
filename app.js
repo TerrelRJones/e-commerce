@@ -105,6 +105,7 @@ function mapCartItems() {
         </div>`;
         product.appendChild(productDetail);
         cartNumbers(JSON.stringify(cart));
+        
 
     });
     
