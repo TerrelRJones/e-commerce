@@ -73,20 +73,54 @@ mainNav.innerHTML = `<nav class="main-nav">
     </div>
 </nav>`;
 
+function addProduct(product, num){
+    num++;
+    console.log(num)
+
+    id = product.id;
+    cartLS.quantity(id,1)
+
+    productQuantity = num;
+
+   let cardCounter = document.querySelector('.counter-counter');
+   let cardQuanntity = document.createElement('div');
+    cardCounter.innerHTML = "";
+    
+   cardCounter.appendChild(cardQuanntity);
+   cardQuanntity.innerHTML = `<div class="counter">${productQuantity}</div>`
+
+    totalPrice();
+
+}
+
+function subProduct(product){
+
+    id = product.id;
+    cartLS.quantity(id,-1)
+    totalPrice();
+}
+
 function addToCart(item){
 
     cartLS.add(item);
 
     cart = cartLS.list();
-    mapCartItems();
+    mapCartItems(cart);
     totalPrice();
 
 }
 
+function deleteProduct(item){
+    // console.log(item)
+    
+    cartLS.remove(item);
+    mapCartItems(cartLS.list());
+    totalPrice();
+};
 
 
 
-function mapCartItems() {
+function mapCartItems(cart) {
     let product = document.querySelector('.product');
     product.innerHTML = "";
     
@@ -106,17 +140,13 @@ function mapCartItems() {
         product.appendChild(productDetail);
     });
     cartLS.onChange(mapCartItems);
+    
+
 };
 
 
 
-function deleteProduct(item){
-    // console.log(item)
 
-     cartLS.remove(item);
-     mapCartItems();
-     totalPrice();
-};
 
 function totalPrice() {
     let total = document.querySelector('.total');
@@ -161,9 +191,9 @@ function mapProducts() {
             <div class="card__quantity">Quantity</div>
             <div class="card__quantity-counter">
                 <div class="card__counter">
-                    <button class="counter-minus disabled" type="button" onclick='cartLS.quantity(${item.id},-1)'><i class="minus fa fa-minus" aria-hidden="true"></i></button>
-                   <div class="counter">${item.quantity}</div>        
-                    <button class="counter-plus" type="button" onclick='cartLS.quantity(${item.id},1)'><i class="plus fa fa-plus" aria-hidden="true"></i></button>
+                    <button class="counter-minus disabled" type="button" onclick='subProduct(${JSON.stringify(item)})'><i class="minus fa fa-minus" aria-hidden="true"></i></button>
+                   <div class="counter-counter"></div>   
+                    <button class="counter-plus" type="button" onclick='addProduct(${JSON.stringify(item)}, ${item.quantity})'><i class="plus fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
@@ -186,9 +216,7 @@ function mapProducts() {
 };
 
 
-
 mapProducts();
-// totalPrice();
 // itemNotification();
 
 // // // // Shopping Cart pop-up // // // // 
@@ -226,8 +254,8 @@ shoppingCart.innerHTML = `<div class="cart-card__title">
 <div class="cart-card__total-price">
     <h3 class="total-price">Total:</h3>
     <div class="total"></div>
-</div>
-<button class="order-btn"" onclick='order()'>order</button>
+    </div>
+    <button class="order-btn"" onclick='order()'>order</button>
 </div>`
 
 
