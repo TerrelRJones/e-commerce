@@ -53,6 +53,9 @@ padding: 30px 10px;
     cursor: pointer;
     transition: color .3s ease-in-out;
 }
+.main-nav__cart-icon a{
+    color: green;
+}
 .cart-icon-notification{
     position: absolute;
     top: -10px;

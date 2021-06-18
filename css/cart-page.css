@@ -1,0 +1,15 @@
+.container__cart-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:rgb(51,82,136);
+}
+
+.cart-card {
+    display: flex;
+    height: 600px;
+    width: 1000px;
+    border-radius: 5px;
+    background-color: white;
+}
