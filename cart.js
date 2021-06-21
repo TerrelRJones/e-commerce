@@ -96,7 +96,7 @@ cartCard.innerHTML = ` <div class="cart-card">
 </div>
 </div> `;
 
-console.log(productInCart);
+// console.log(productInCart);
 
 // Products in cart
 function mapCart() {
