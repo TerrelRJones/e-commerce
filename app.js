@@ -35,7 +35,8 @@ let products = [
         description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, libero!  Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         url:'https://secure.img1-fg.wfcdn.com/im/84728836/resize-h800%5Ecompr-r85/1248/124813350/12%2522+Live+Snake+Plant+in+Pot.jpg',
         quantity: 1
-    }
+    },
+
 ];
 
 
@@ -136,12 +137,6 @@ function mapCartItems(cart) {
         </button>
         </div>`;
         product.appendChild(productDetail);
-<<<<<<< HEAD
-        cartNumbers(JSON.stringify(cart));
-        
-
-=======
->>>>>>> cart-rework
     });
     cartLS.onChange(mapCartItems);
     
