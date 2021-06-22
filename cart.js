@@ -1,35 +1,3 @@
-// // // // Header Navigation // // // //
-let header = document.querySelector(".header__container");
-let mainNav = document.createElement("nav");
-
-header.appendChild(mainNav);
-mainNav.innerHTML = `<nav class="main-nav">
-<div class="main-nav__logo">
-    PRIME.
-</div>
-<div class="main-nav__links">
-    <ul class="main-nav__link-ul">
-        <li>
-            <a class="main-nav__link--active" href="/">SHOP</a>
-        </li>
-        <li>
-            <a class="main-nav__link" href="/">PRODUCTS</a>
-        </li> 
-        <li>
-            <a class="main-nav__link" href="/">SALE</a>
-        </li> 
-        <li>
-            <a class="main-nav__link" href="/">ACCOUNT</a>
-        </li> 
-</div>
-    <div class="main-nav__cart-icon">
-<a href="/cart.html">
-        <i id="cart-icon" class="fas fa-shopping-cart">
-        <div class="cart-icon-notification" id="cart-icon-notification">0</div>
-        </i>
-        </a>
-    </div>
-</nav>`;
 
 // Main Cart Storage
 let productInCart = localStorage.getItem("__cart");
@@ -96,7 +64,7 @@ cartCard.innerHTML = ` <div class="cart-card">
 </div>
 </div> `;
 
-// console.log(productInCart);
+console.log(productInCart);
 
 // Products in cart
 function mapCart() {
@@ -140,5 +108,5 @@ function addProduct(id){
 function removeItem(id) {
   console.log(id);
 }
-
+console.log(cartLS.total())
 mapCart();

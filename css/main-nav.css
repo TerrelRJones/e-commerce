@@ -1,4 +1,6 @@
 .header__container{
+    display: flex;
+    justify-content: center;
     background-color: whitesmoke;
     height: 100px;
     width: 100%;
@@ -10,10 +12,14 @@
 display: flex;
 justify-content: space-between;
 align-items: center;
-position: relative;
+/* position: relative; */
 padding: 30px 10px;
+/* background-color: red; */
+width: 1200px;
+height: 100px;
 }
-.main-nav__logo{
+.logo-btn{
+    text-decoration: none;
     font-size: 50px;
     color: green;
     font-family: 'Roboto', sans-serif;
