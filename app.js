@@ -41,11 +41,8 @@ let products = [
   },
 ];
 
-// let productNumbers = 0;
+//main cart
 let cart = [];
-
-let productInCart = localStorage.getItem("__cart");
-productInCart = JSON.parse(productInCart);
 
 // // // // Header Navigation // // // //
 let header = document.querySelector(".header__container");
@@ -74,7 +71,7 @@ PRIME.
 </li> 
 </div>
 <div class="main-nav__cart-icon">
-<a href="/cart.html">
+<a href="./cart.html">
 <i id="cart-icon" class="fas fa-shopping-cart">
 <div class="cart-icon-notification" id="cart-icon-notification">0</div>
 </i>
@@ -82,328 +79,329 @@ PRIME.
 </div>
 </nav>`;
 
+// PRODUCT PAGE FUNCTIONS
+function addProduct(id) {
+  let quantityContainer = document.getElementById(id).innerHTML;
+  let quantity = Number(quantityContainer);
 
-///////// PAGES ///////////////
+  document.getElementById(id).innerHTML = quantity + 1;
+}
 
-let page = document.body.id;
+function subProduct(id) {
+  let quantityContainer = document.getElementById(id).innerHTML;
+  let quantity = Number(quantityContainer);
+  if (quantity > 1) {
+    document.getElementById(id).innerHTML = quantity - 1;
+  }
+}
 
-///////// SHOP PAGE ///////////////
+function addToCart(item, id) {
+  console.log(cartLS.list());
+  let quantityContainer = document.getElementById(id).innerHTML;
+  let quantity = Number(quantityContainer);
 
-//////SWITCH PAGES////////
-switch (page) {
-  case "products":
-    function addProduct(id) {
-      let quantityContainer = document.getElementById(id).innerHTML;
-      let quantity = Number(quantityContainer);
+  cartLS.add(item, quantity);
+  cart = cartLS.list();
+  mapCartItems(cart);
+  totalPrice();
+}
 
-      document.getElementById(id).innerHTML = quantity + 1;
+function deleteProduct(item) {
+  cartLS.remove(item);
+  mapCartItems(cartLS.list());
+  totalPrice();
+}
 
-    }
+function mapCartItems(cart) {
+  let product = document.querySelector(".product");
+  product.innerHTML = "";
 
-    function subProduct(id) {
-      let quantityContainer = document.getElementById(id).innerHTML;
-      let quantity = Number(quantityContainer);
-      if (quantity > 1) {
-        document.getElementById(id).innerHTML = quantity - 1;
-      }
-    }
+  cart.map((item) => {
+    let productDetail = document.createElement("div");
+    productDetail.innerHTML = "";
 
-    function addToCart(item, id) {
-      console.log(cartLS.list());
-      let quantityContainer = document.getElementById(id).innerHTML;
-      let quantity = Number(quantityContainer);
-
-      cartLS.add(item, quantity);
-      cart = cartLS.list();
-      mapCartItems(cart);
-      totalPrice();
-    }
-
-    function deleteProduct(item) {
-
-      cartLS.remove(item);
-      mapCartItems(cartLS.list());
-      totalPrice();
-    }
-
-    function mapCartItems(cart) {
-      let product = document.querySelector(".product");
-      product.innerHTML = "";
-
-      cart.map((item) => {
-        let productDetail = document.createElement("div");
-        productDetail.innerHTML = "";
-
-        productDetail.innerHTML = `<div class="cart-card__item-info">
-                    <div class="cart-card__qty-number">${item.quantity}</div>
-                    <div class="cart-card__item">${item.brand}</div>
-                    <div class="cart-card__item">${item.name}</div>
-                    <div class="cart-card__price">$${item.price}</div>
-                    <button class="cart-card__trash-btn" onclick='deleteProduct(${item.id})'>
-                    <i class="icon fas fa-trash-alt"></i>
-                    </button>
-                    </div>`;
-        product.appendChild(productDetail);
-      });
-      cartLS.onChange(mapCartItems);
-    }
-
-    function totalPrice() {
-      let total = document.querySelector(".total");
-      total.innerHTML = "";
-
-      let totalPrice = document.createElement("div");
-      let sum = cartLS.total();
-
-      totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`;
-      total.appendChild(totalPrice);
-    }
-
-    // // // // Display all products // // // //
-    function mapProducts() {
-      let container = document.querySelector(".container");
-
-      products.map((item) => {
-        let card = document.createElement("div");
-        card.innerHTML = "";
-
-        container.appendChild(card);
-        card.innerHTML = `        <div class="card__container">
-                <div class="card__image-container">
-                    <img class='card__image' src="${item.url}" alt="">
-                </div>
-                <div class="card__right-info">
-                    <div class='card__product-status-bg'>
-                    <h3 class="card__product-status">new</h3>
-                </div>
-                <h1 class="card__product-title">${item.brand}</h1>
-                <h3 class="card__product-name">${item.name}</h3>
-                <div class="card__price-quantity">
-                    <div class="card__price-container">
-                        <div class="card__price">price</div>
-                        <div class="card__price-number">$${item.price}</div>
-                    </div>
-                    <div class="card__quantity-container">
-                        <div class="card__quantity">Quantity</div>
-                        <div class="card__quantity-counter">
-                            <div class="card__counter">
-                                <button class="counter-minus disabled" type="button" onclick='subProduct(${
-                                  item.id
-                                })'><i class="minus fa fa-minus" aria-hidden="true"></i></button>
-                               <div class="counter" id='${item.id}'>1</div>   
-                                <button class="counter-plus" type="button" onclick='addProduct(${
-                                  item.id
-                                })'><i class="plus fa fa-plus" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    <h3 class="card_description">Description</h3>
-                    <div class="card__description-underline"></div>
-                    <div class='card__product-description-container'>
-                    <p class="card__product-description">${item.description}</p>
-                    </div>
-                    <div class="card__btnBottom">
-                    <button class="add-to-cart" onclick='addToCart(${JSON.stringify(item)}, ${item.id})'><i class="add-to-cart-bag-icon"></i>Add to Cart</button>
-                    </div>
-                    </div>
-                </div>
+    productDetail.innerHTML = `<div class="cart-card__item-info">
+                <div class="cart-card__qty-number">${item.quantity}</div>
+                <div class="cart-card__item">${item.brand}</div>
+                <div class="cart-card__item">${item.name}</div>
+                <div class="cart-card__price">$${item.price}</div>
+                <button class="cart-card__trash-btn" onclick='deleteProduct(${item.id})'>
+                <i class="icon fas fa-trash-alt"></i>
+                </button>
                 </div>`;
-      });
-    }
+    product.appendChild(productDetail);
+  });
+  cartLS.onChange(mapCartItems);
+}
 
-    mapProducts();
+function totalPrice() {
+  let total = document.querySelector(".total");
+  total.innerHTML = "";
 
-    // // // // Shopping Cart pop-up // // // //
-    let bottom = document.querySelector(".bottom__container");
-    let shoppingCart = document.createElement("div");
+  let totalPrice = document.createElement("div");
+  let sum = cartLS.total();
 
-    bottom.appendChild(shoppingCart);
-    shoppingCart.innerHTML = `<div class="cart-card__title">
-            <h4 class="cart-card__message">
-                You've got some things.
-            </h4>
-            </div>
-            <div class="cart-description">
-            <div class="cart-descripion__close-btn">
-                <i class="fas fa-times"></i>
-            </div>
-            <div class="cart-description__qty">
-                <h3 class='qty'>
-                    QTY
-                </h3>
-            </div>
-            <div class="cart-description__item">
-                <h3 class='item'>
+  totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`;
+  total.appendChild(totalPrice);
+}
+
+function mainPage() {
+  // // // // Display all products // // // //
+  function mapProducts() {
+    let container = document.querySelector(".container");
+
+    products.map((item) => {
+      let card = document.createElement("div");
+      card.innerHTML = "";
+
+      container.appendChild(card);
+      card.innerHTML = `        <div class="card__container">
+              <div class="card__image-container">
+                  <img class='card__image' src="${item.url}" alt="">
+              </div>
+              <div class="card__right-info">
+                  <div class='card__product-status-bg'>
+                  <h3 class="card__product-status">new</h3>
+              </div>
+              <h1 class="card__product-title">${item.brand}</h1>
+              <h3 class="card__product-name">${item.name}</h3>
+              <div class="card__price-quantity">
+                  <div class="card__price-container">
+                      <div class="card__price">price</div>
+                      <div class="card__price-number">$${item.price}</div>
+                  </div>
+                  <div class="card__quantity-container">
+                      <div class="card__quantity">Quantity</div>
+                      <div class="card__quantity-counter">
+                          <div class="card__counter">
+                              <button class="counter-minus disabled" type="button" onclick='subProduct(${
+                                item.id
+                              })'><i class="minus fa fa-minus" aria-hidden="true"></i></button>
+                             <div class="counter" id='${item.id}'>1</div>   
+                              <button class="counter-plus" type="button" onclick='addProduct(${
+                                item.id
+                              })'><i class="plus fa fa-plus" aria-hidden="true"></i></button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                  <h3 class="card_description">Description</h3>
+                  <div class="card__description-underline"></div>
+                  <div class='card__product-description-container'>
+                  <p class="card__product-description">${item.description}</p>
+                  </div>
+                  <div class="card__btnBottom">
+                  <button class="add-to-cart" onclick='addToCart(${JSON.stringify(
                     item
-                </h3>
-            </div>
-            <div class="cart-description__price">
-                <h3 class='price'>
-                    price
-                </h3>
-            </div>
-            </div>
-            <div class="product"></div>
-            <div class="cart-card__bottom">
-            <div class="cart-card__total-price">
-                <h3 class="total-price">Total:</h3>
-                <div class="total"></div>
-                </div>
-                <button class="order-btn"" onclick='order()'>order</button>
-            </div>`;
+                  )}, ${
+        item.id
+      })'><i class="add-to-cart-bag-icon"></i>Add to Cart</button>
+                  </div>
+                  </div>
+              </div>
+              </div>`;
+    });
+  }
 
-    break;
+  mapProducts();
 
+  // // // // Shopping Cart pop-up // // // //
+  let bottom = document.querySelector(".bottom__container");
+  let shoppingCart = document.createElement("div");
 
-  /////////// CART PAGE /////////
-  case "cart":
+  bottom.appendChild(shoppingCart);
+  shoppingCart.innerHTML = `<div class="cart-card__title">
+          <h4 class="cart-card__message">
+              You've got some things.
+          </h4>
+          </div>
+          <div class="cart-description">
+          <div class="cart-descripion__close-btn">
+              <i class="fas fa-times"></i>
+          </div>
+          <div class="cart-description__qty">
+              <h3 class='qty'>
+                  QTY
+              </h3>
+          </div>
+          <div class="cart-description__item">
+              <h3 class='item'>
+                  item
+              </h3>
+          </div>
+          <div class="cart-description__price">
+              <h3 class='price'>
+                  price
+              </h3>
+          </div>
+          </div>
+          <div class="product"></div>
+          <div class="cart-card__bottom">
+          <div class="cart-card__total-price">
+              <h3 class="total-price">Total:</h3>
+              <div class="total"></div>
+              </div>
+              <button class="order-btn"" onclick='order()'>order</button>
+          </div>`;
+}
 
-    // Main Cart Storage
-    function addProductCart(item, id) {
-        let quantityContainer = document.getElementById(id).innerHTML;
-        let quantity = Number(quantityContainer);
-  
-        document.getElementById(id).innerHTML = quantity + 1;
-        cartLS.add(item);
-        totalPriceCart();
-      };
-  
-      function subProductCart(item, id) {
-        let quantityContainer = document.getElementById(id).innerHTML;
-        let quantity = Number(quantityContainer);
-        if (quantity > 1) {
-          document.getElementById(id).innerHTML = quantity - 1;
-        };
-  
-        cartLS.add(item, -1);
-        totalPriceCart();
-      };
-  
-      function removeItem(item) {
-        cartLS.remove(item);
-        mapCart();
-        totalPriceCart();
-        productInCart;
-      };
-  
-      function totalPriceCart() {
-        let total = document.querySelector(".sub-total__price");
-        total.innerHTML = "";
-  
-        let sum = cartLS.total();
-        total.innerHTML = `$${sum}`;
-      };
-  
+function getCartItems() {
+  let productInCart = localStorage.getItem("__cart");
+  return JSON.parse(productInCart);
+}
 
-    // Cart Page Card
-    let cartCardContainer = document.querySelector(".container__cart-page");
-    let cartCard = document.createElement("div");
+//// CART PAGE FUNCTIONS
+function addProductCart(item, id) {
+  let quantityContainer = document.getElementById(id).innerHTML;
+  let quantity = Number(quantityContainer);
 
-    cartCardContainer.appendChild(cartCard);
-    cartCard.innerHTML = ` <div class="cart-card">
-<div class="cart-card__left-info">
-  <div class="product-container">
-    <h1 class="qty">QTY</h1>
-    <h1 class="product">item</h1>
-    <h1 class="price">PRICE</h1>
-  </div>
-  <div class="productCart-info"></div>
-</div>
-<div class="cart-card__right-info">
-  <h1 class="cart-card__total-title">TOTAL</h1>
-  <div class="cart-card__sub-total">
-    <h2 class="sub-total">Sub-Total</h2>
-    <h3 class="sub-total__price"></h3>
-  </div>
-  <div class="cart-card__shipping">
-    <h2 class="shipping">Shipping</h2>
-    <h3 class="shipping-eta">TBD</h3>
-  </div>
-  <div class="cart-card__discount-code">
-    <input type="text" class="discount-code__input" placeholder="Please eneter here">
-    <button class="discount-code-btn"> Apply discount</button>
-  </div>
-  <div class="divider"></div>
-  <button class="checkout-btn">Checkout</button>
+  document.getElementById(id).innerHTML = quantity + 1;
+  cartLS.add(item);
+  totalPriceCart();
+}
 
-  <h1 class="we-accept">We accept:</h1>
-  <div class="payment-options">
-    <span
-      class="dc_payment_icons_flat_32 dc_visa_flat"
-      title="Visa Electron"
-    ></span>
-    <span
-      class="dc_payment_icons_flat_32 dc_mastercard_flat"
-      title="MasterCard"
-    ></span>
-    <span
-      class="dc_payment_icons_flat_32 dc_american_express_flat"
-      title="American Express"
-    ></span>
-    <span
-      class="dc_payment_icons_flat_32 dc_paypal_flat"
-      title="PayPal"
-    ></span>
-    <span
-      class="dc_payment_icons_flat_32 dc_discover_flat"
-      title="Discover"
-    ></span>
-    <span
-      class="dc_payment_icons_flat_32 dc_maestro_flat"
-      title="Maestro"
-    ></span>
-  </div>
-</div>
-</div> `;
+function subProductCart(item, id) {
+  let quantityContainer = document.getElementById(id).innerHTML;
+  let quantity = Number(quantityContainer);
+  if (quantity > 1) {
+    document.getElementById(id).innerHTML = quantity - 1;
+  }
 
-    console.log(productInCart);
+  cartLS.add(item, -1);
+  totalPriceCart();
+}
 
-    // Products in cart on Cart Page
-    function mapCart() {
-      if (productInCart) {
+function removeItem(item) {
+  cartLS.remove(item);
+  mapCart();
+  totalPriceCart();
+  getCartItems();
+}
 
-        let productCardContainer = document.querySelector(".productCart-info");
-        productCardContainer.innerHTML = "";
+function mapCart() {
+  if (getCartItems()) {
+    let productCardContainer = document.querySelector(".productCart-info");
+    productCardContainer.innerHTML = "";
 
-        productInCart.map((item) => {
-          let productInfo = document.createElement("div");
-          productInfo.innerHTML = "";
+    getCartItems().map((item) => {
+      let productInfo = document.createElement("div");
+      productInfo.innerHTML = "";
 
-          productCardContainer.appendChild(productInfo);
-          productInfo.innerHTML = `<div class="cart-card__product-information">
+      productCardContainer.appendChild(productInfo);
+      productInfo.innerHTML = `<div class="cart-card__product-information">
 <div class="cart-card__counter">
-  <button class="counter-minus" type="button" onclick='subProductCart(${JSON.stringify(
-    item
-  )},${item.id})'>
-    <i class="minus fa fa-minus" aria-hidden="true"></i>
-  </button>
-  <div class="cart-card__quantity" id="${item.id}">${item.quantity}</div>
-  <button class="counter-plus" type="button" onclick='addProductCart(${JSON.stringify(
-    item
-  )},${item.id})'>
-    <i class="minus fa fa-plus" aria-hidden="true"></i>
-  </button>
+<button class="counter-minus" type="button" onclick='subProductCart(${JSON.stringify(
+ item
+)},${item.id})'>
+ <i class="minus fa fa-minus" aria-hidden="true"></i>
+</button>
+<div class="cart-card__quantity" id="${item.id}">${item.quantity}</div>
+<button class="counter-plus" type="button" onclick='addProductCart(${JSON.stringify(
+ item
+)},${item.id})'>
+ <i class="minus fa fa-plus" aria-hidden="true"></i>
+</button>
 </div>
 <div class="cart-card__item">${item.brand} ${item.name}</div>
 <div class="cart-card__price">$${item.price}</div>
 <button class="cart-card__trash-btn" onclick='removeItem(${item.id})'>
-  <i class="icon fas fa-trash-alt"></i>
+<i class="icon fas fa-trash-alt"></i>
 </button>
 </div>`;
-          productCardContainer.appendChild(productInfo);
-        });
-      } 
-      
-      else {
-        let productCardContainer = document.querySelector(".productCart-info");
-        productCardContainer.innerHTML = `<h1 class="empty-cart">Your cart is empty</h1>`;
-      }
-    }
-
-    mapCart();
-
-    
-    break;
+      productCardContainer.appendChild(productInfo);
+    });
+  } else {
+    let productCardContainer = document.querySelector(".productCart-info");
+    productCardContainer.innerHTML = `<h1 class="empty-cart">Your cart is empty</h1>`;
   }
-  
+};
+
+function totalPriceCart() {
+  let total = document.querySelector(".sub-total__price");
+  total.innerHTML = "";
+
+  let sum = cartLS.total();
+  total.innerHTML = `$${sum}`;
+}
+
+function cartPage() {
+  getCartItems();
+
+  // Cart Page Card
+  let cartCardContainer = document.querySelector(".container__cart-page");
+  let cartCard = document.createElement("div");
+
+  cartCardContainer.appendChild(cartCard);
+  cartCard.innerHTML = ` <div class="cart-card">
+<div class="cart-card__left-info">
+ <div class="product-container">
+   <h1 class="qty">QTY</h1>
+   <h1 class="product">item</h1>
+   <h1 class="price">PRICE</h1>
+ </div>
+ <div class="productCart-info"></div>
+</div>
+<div class="cart-card__right-info">
+ <h1 class="cart-card__total-title">TOTAL</h1>
+ <div class="cart-card__sub-total">
+   <h2 class="sub-total">Sub-Total</h2>
+   <h3 class="sub-total__price"></h3>
+ </div>
+ <div class="cart-card__shipping">
+   <h2 class="shipping">Shipping</h2>
+   <h3 class="shipping-eta">TBD</h3>
+ </div>
+ <div class="cart-card__discount-code">
+   <input type="text" class="discount-code__input" placeholder="Please eneter here">
+   <button class="discount-code-btn"> Apply discount</button>
+ </div>
+ <div class="divider"></div>
+ <button class="checkout-btn">Checkout</button>
+
+ <h1 class="we-accept">We accept:</h1>
+ <div class="payment-options">
+   <span
+     class="dc_payment_icons_flat_32 dc_visa_flat"
+     title="Visa Electron"
+   ></span>
+   <span
+     class="dc_payment_icons_flat_32 dc_mastercard_flat"
+     title="MasterCard"
+   ></span>
+   <span
+     class="dc_payment_icons_flat_32 dc_american_express_flat"
+     title="American Express"
+   ></span>
+   <span
+     class="dc_payment_icons_flat_32 dc_paypal_flat"
+     title="PayPal"
+   ></span>
+   <span
+     class="dc_payment_icons_flat_32 dc_discover_flat"
+     title="Discover"
+   ></span>
+   <span
+     class="dc_payment_icons_flat_32 dc_maestro_flat"
+     title="Maestro"
+   ></span>
+ </div>
+</div>
+</div> `;
+
+  console.log(getCartItems());
+
+  // Products in cart on Cart Page
+  mapCart();
+}
+///////// PAGES ID///////////////
+let page = document.body.id;
+//////SWITCH FOR PAGES////////
+switch (page) {
+  case "products":
+    mainPage();
+    break;
+    case "cart":
+      getCartItems();
+      cartPage();
+    break;
+};
