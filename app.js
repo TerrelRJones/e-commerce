@@ -44,6 +44,9 @@ let products = [
 // let productNumbers = 0;
 let cart = [];
 
+let productInCart = localStorage.getItem("__cart");
+productInCart = JSON.parse(productInCart);
+
 // // // // Header Navigation // // // //
 let header = document.querySelector(".header__container");
 let mainNav = document.createElement("nav");
@@ -79,8 +82,14 @@ PRIME.
 </div>
 </nav>`;
 
+
+///////// PAGES ///////////////
+
 let page = document.body.id;
 
+///////// SHOP PAGE ///////////////
+
+//////SWITCH PAGES////////
 switch (page) {
   case "products":
     function addProduct(id) {
@@ -97,7 +106,6 @@ switch (page) {
       if (quantity > 1) {
         document.getElementById(id).innerHTML = quantity - 1;
       }
-      // totalPrice();
     }
 
     function addToCart(item, id) {
@@ -112,7 +120,6 @@ switch (page) {
     }
 
     function deleteProduct(item) {
-      // console.log(item)
 
       cartLS.remove(item);
       mapCartItems(cartLS.list());
@@ -200,7 +207,6 @@ switch (page) {
                     <button class="add-to-cart" onclick='addToCart(${JSON.stringify(item)}, ${item.id})'><i class="add-to-cart-bag-icon"></i>Add to Cart</button>
                     </div>
                     </div>
-                    
                 </div>
                 </div>`;
       });
@@ -249,12 +255,11 @@ switch (page) {
 
     break;
 
+
+  /////////// CART PAGE /////////
   case "cart":
 
     // Main Cart Storage
-    let productInCart = localStorage.getItem("__cart");
-    productInCart = JSON.parse(productInCart);
-    
     function addProductCart(item, id) {
         let quantityContainer = document.getElementById(id).innerHTML;
         let quantity = Number(quantityContainer);
@@ -279,6 +284,7 @@ switch (page) {
         cartLS.remove(item);
         mapCart();
         totalPriceCart();
+        productInCart;
       };
   
       function totalPriceCart() {
@@ -353,7 +359,7 @@ switch (page) {
 
     console.log(productInCart);
 
-    // Products in cart
+    // Products in cart on Cart Page
     function mapCart() {
       if (productInCart) {
 
@@ -385,7 +391,7 @@ switch (page) {
   <i class="icon fas fa-trash-alt"></i>
 </button>
 </div>`;
-        //   productCardContainer.appendChild(productInfo);
+          productCardContainer.appendChild(productInfo);
         });
       } 
       
@@ -395,8 +401,9 @@ switch (page) {
       }
     }
 
-
     mapCart();
+
     
     break;
-}
+  }
+  
