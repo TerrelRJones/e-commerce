@@ -43,6 +43,7 @@ let products = [
 
 //main cart
 let cart = [];
+let notification = [];
 
 // // // // Header Navigation // // // //
 let header = document.querySelector(".header__container");
@@ -248,7 +249,28 @@ function mainPage() {
 function getCartItems() {
   let productInCart = localStorage.getItem("__cart");
   return JSON.parse(productInCart);
-}
+};
+
+
+// Cart notification numbers
+function cartNotification(){
+  getCartItems().map((item) => {
+    notificationNumbers = item.quantity;
+    notificication = notification.push(notificationNumbers);
+    // console.log(notification);
+  });
+};
+cartNotification();
+
+const totalNotification = notification.reduce((currentTotal, item) => {
+  return item + currentTotal;
+});
+console.log(totalNotification);
+
+let iconNotification = document.querySelector('.cart-icon-notification');
+iconNotification.innerHTML = `${totalNotification}`;
+
+
 
 //// CART PAGE FUNCTIONS
 function addProductCart(item, id) {
@@ -399,9 +421,11 @@ let page = document.body.id;
 switch (page) {
   case "products":
     mainPage();
+    cartNotification();
     break;
     case "cart":
       getCartItems();
       cartPage();
+      cartNotification();
     break;
 };
