@@ -105,12 +105,14 @@ function addToCart(item, id) {
   cart = cartLS.list();
   mapCartItems(cart);
   totalPrice();
+  showCartNotification();
 }
 
 function deleteProduct(item) {
   cartLS.remove(item);
   mapCartItems(cartLS.list());
   totalPrice();
+  showCartNotification();
 }
 
 function mapCartItems(cart) {
@@ -251,24 +253,17 @@ function getCartItems() {
   return JSON.parse(productInCart);
 };
 
+function showCartNotification(){
 
-// Cart notification numbers
-function cartNotification(){
-  getCartItems().map((item) => {
-    notificationNumbers = item.quantity;
-    notificication = notification.push(notificationNumbers);
-    // console.log(notification);
-  });
-};
-cartNotification();
+  let productInCart = localStorage.getItem("__cart");
+  let result = JSON.parse(productInCart).map(a => a.quantity);
+  const cartNumber = result.reduce(function(a, b){return a+b;})
+  
+  let iconNotification = document.querySelector('.cart-icon-notification');
+  iconNotification.innerHTML = cartNumber;
+  
+  }
 
-const totalNotification = notification.reduce((currentTotal, item) => {
-  return item + currentTotal;
-});
-console.log(totalNotification);
-
-let iconNotification = document.querySelector('.cart-icon-notification');
-iconNotification.innerHTML = `${totalNotification}`;
 
 
 
@@ -280,6 +275,8 @@ function addProductCart(item, id) {
   document.getElementById(id).innerHTML = quantity + 1;
   cartLS.add(item);
   totalPriceCart();
+  showCartNotification();
+
 }
 
 function subProductCart(item, id) {
@@ -287,6 +284,8 @@ function subProductCart(item, id) {
   let quantity = Number(quantityContainer);
   if (quantity > 1) {
     document.getElementById(id).innerHTML = quantity - 1;
+
+    showCartNotification();
   }
 
   cartLS.add(item, -1);
@@ -298,6 +297,7 @@ function removeItem(item) {
   mapCart();
   totalPriceCart();
   getCartItems();
+  showCartNotification();
 }
 
 function mapCart() {
@@ -415,17 +415,19 @@ function cartPage() {
   // Products in cart on Cart Page
   mapCart();
 }
+
+
 ///////// PAGES ID///////////////
 let page = document.body.id;
 //////SWITCH FOR PAGES////////
 switch (page) {
   case "products":
     mainPage();
-    cartNotification();
     break;
     case "cart":
       getCartItems();
       cartPage();
-      cartNotification();
     break;
 };
+
+showCartNotification();
