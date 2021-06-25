@@ -144,7 +144,7 @@ function totalPrice() {
   let totalPrice = document.createElement("div");
   let sum = cartLS.total();
 
-  totalPrice.innerHTML = `<h3 class="total-price__numbers">${sum}</h3>`;
+  totalPrice.innerHTML = `<h3 class="total-price__numbers">${Math.round(sum*100)/100}</h3>`;
   total.appendChild(totalPrice);
 }
 
@@ -285,11 +285,11 @@ function subProductCart(item, id) {
   if (quantity > 1) {
     document.getElementById(id).innerHTML = quantity - 1;
 
-    showCartNotification();
   }
-
+  
   cartLS.add(item, -1);
   totalPriceCart();
+  showCartNotification();
 }
 
 function removeItem(item) {
@@ -343,7 +343,7 @@ function totalPriceCart() {
   total.innerHTML = "";
 
   let sum = cartLS.total();
-  total.innerHTML = `$${sum}`;
+  total.innerHTML = `$${Math.round(sum*100)/100}`;
 }
 
 function cartPage() {
