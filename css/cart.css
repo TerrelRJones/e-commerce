@@ -129,3 +129,23 @@
     cursor: pointer;
     border-radius: 2px;
 }
+
+@media (max-width: 480px){
+    .bottom__container{
+        width: 350px;
+        margin-right: 10px;
+    }
+    .cart-card__item{
+        /* display: block; */
+    }
+    .cart-description__price{
+        right: 110px;
+    }
+    .cart-card__price{
+        background-color: white;
+        padding: 5px;
+    }
+    .cart-descripion__close-btn{
+        right: 80px;
+    }
+}
