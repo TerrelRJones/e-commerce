@@ -68,7 +68,7 @@ PRIME.
 <a class="main-nav__link" href="/">SALE</a>
 </li> 
 <li>
-<a class="main-nav__link" href="/">ACCOUNT</a>
+<a class="main-nav__link" href="./cart.html">ACCOUNT</a>
 </li> 
 </div>
 <div class="main-nav__cart-icon">
@@ -105,6 +105,11 @@ PRIME.
 <li>
 <div class="ham-menu__bg">
 <a class="main-nav__link" href="./cart.html">ACCOUNT</a>
+</div>
+</li> 
+<li>
+<div class="ham-menu__bg">
+<a class="main-nav__link cart" href="./cart.html">CART<div class="ham-burg-notification" id="cart-icon-notification">0</div></a>
 </div>
 </li> 
 </div>
@@ -300,6 +305,8 @@ function showCartNotification(){
   let iconNotification = document.querySelector('.cart-icon-notification');
   iconNotification.innerHTML = cartNumber;
   
+  // let iconNotification = document.querySelector('.ham-burg-notification');
+  // iconNotification.innerHTML = cartNumber;
   }
 
 

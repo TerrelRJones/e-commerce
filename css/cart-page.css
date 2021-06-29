@@ -175,3 +175,19 @@
     margin-top: 30px;
     text-transform: uppercase;
 }
+
+@media (max-width: 500px){
+    .cart-card{
+        display: block;
+        width: 350px;
+    }
+    .cart-card__left-info{
+        width: 100%;
+    }
+    .cart-card__right-info{
+        width: 100%;
+    }
+    .checkout-btn{
+        width: 100%;
+    }
+}
