@@ -78,7 +78,45 @@ PRIME.
 </i>
 </a>
 </div>
-</nav>`;
+<div class="ham-menu" onclick='hamburgerMenu()'>
+<i class="fas fa-bars hamburger-menu"></i>
+</div>
+</nav>
+
+
+<div class="mobile-nav">
+<div class="main-nav__links-mobile">
+<ul class="main-nav__link-ul-mobile">
+<li>
+<div class="ham-menu__bg">
+<a class="main-nav__link--active" href="/">SHOP</a>
+</div>
+</li>
+<li>
+<div class="ham-menu__bg">
+<a class="main-nav__link" href="/">PRODUCTS</a>
+</div>
+</li> 
+<li>
+<div class="ham-menu__bg">
+<a class="main-nav__link" href="/">SALE</a>
+</div>
+</li> 
+<li>
+<div class="ham-menu__bg">
+<a class="main-nav__link" href="./cart.html">ACCOUNT</a>
+</div>
+</li> 
+</div>
+</div>`;
+
+//MOBILE MENU TOGGLE
+let mobileMenu = document.querySelector('.mobile-nav');
+
+function hamburgerMenu(){
+  mobileMenu.classList.toggle('mobile-nav-close');
+}
+
 
 // PRODUCT PAGE FUNCTIONS
 function addProduct(id) {
