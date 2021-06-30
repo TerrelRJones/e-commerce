@@ -78,48 +78,19 @@ PRIME.
 </i>
 </a>
 </div>
-<div class="ham-menu" onclick='hamburgerMenu()'>
-<i class="fas fa-bars hamburger-menu"></i>
+<div class="hamburger" onclick="hamburgerMenu()">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
 </div>
 </nav>
-
-
-<div class="mobile-nav">
-<div class="main-nav__links-mobile">
-<ul class="main-nav__link-ul-mobile">
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link--active" href="/">SHOP</a>
-</div>
-</li>
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link" href="/">PRODUCTS</a>
-</div>
-</li> 
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link" href="/">SALE</a>
-</div>
-</li> 
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link" href="./cart.html">ACCOUNT</a>
-</div>
-</li> 
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link cart" href="./cart.html">CART<div class="ham-burg-notification" id="cart-icon-notification">0</div></a>
-</div>
-</li> 
-</div>
 </div>`;
 
 //MOBILE MENU TOGGLE
-let mobileMenu = document.querySelector('.mobile-nav');
+let mobileMenu = document.querySelector('.main-nav__links');
 
 function hamburgerMenu(){
-  mobileMenu.classList.toggle('mobile-nav-close');
+  mobileMenu.classList.toggle('.main-nav__links--active');
 }
 
 

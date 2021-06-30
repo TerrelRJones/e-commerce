@@ -132,6 +132,7 @@
 
 @media (max-width: 500px){
     .bottom__container{
+        display: none;
         width: 350px;
         margin-right: 10px;
     }
