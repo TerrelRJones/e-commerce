@@ -59,13 +59,13 @@ PRIME.
 <div class="main-nav__links">
 <ul class="main-nav__link-ul">
 <li>
-<a class="main-nav__link--active" href="/">SHOP</a>
+<a class="main-nav__link--active" href="./index.html">SHOP</a>
 </li>
 <li>
-<a class="main-nav__link" href="/">PRODUCTS</a>
+<a class="main-nav__link" href="./index.html">PRODUCTS</a>
 </li> 
 <li>
-<a class="main-nav__link" href="/">SALE</a>
+<a class="main-nav__link" href="./index.html">SALE</a>
 </li> 
 <li>
 <a class="main-nav__link" href="./cart.html">ACCOUNT</a>
