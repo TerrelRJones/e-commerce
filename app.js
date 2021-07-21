@@ -68,7 +68,7 @@ PRIME.
 <a class="main-nav__link" href="/">SALE</a>
 </li> 
 <li>
-<a class="main-nav__link" href="/">ACCOUNT</a>
+<a class="main-nav__link" href="./cart.html">ACCOUNT</a>
 </li> 
 </div>
 <div class="main-nav__cart-icon">
@@ -78,45 +78,20 @@ PRIME.
 </i>
 </a>
 </div>
-<div class="ham-menu" onclick='hamburgerMenu()'>
-<i class="fas fa-bars hamburger-menu"></i>
+<div class="hamburger" onclick="hamburgerMenu()">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
 </div>
 </nav>
-
-
-<div class="mobile-nav">
-<div class="main-nav__links-mobile">
-<ul class="main-nav__link-ul-mobile">
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link--active" href="/">SHOP</a>
-</div>
-</li>
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link" href="/">PRODUCTS</a>
-</div>
-</li> 
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link" href="/">SALE</a>
-</div>
-</li> 
-<li>
-<div class="ham-menu__bg">
-<a class="main-nav__link" href="./cart.html">ACCOUNT</a>
-</div>
-</li> 
-</div>
 </div>`;
 
 //MOBILE MENU TOGGLE
-let mobileMenu = document.querySelector('.mobile-nav');
+let mobileMenu = document.querySelector(".main-nav__links");
 
-function hamburgerMenu(){
-  mobileMenu.classList.toggle('mobile-nav-close');
+function hamburgerMenu() {
+  mobileMenu.classList.toggle("main-nav__links--active");
 }
-
 
 // PRODUCT PAGE FUNCTIONS
 function addProduct(id) {
@@ -182,7 +157,9 @@ function totalPrice() {
   let totalPrice = document.createElement("div");
   let sum = cartLS.total();
 
-  totalPrice.innerHTML = `<h3 class="total-price__numbers">${Math.round(sum*100)/100}</h3>`;
+  totalPrice.innerHTML = `<h3 class="total-price__numbers">${
+    Math.round(sum * 100) / 100
+  }</h3>`;
   total.appendChild(totalPrice);
 }
 
@@ -289,21 +266,21 @@ function mainPage() {
 function getCartItems() {
   let productInCart = localStorage.getItem("__cart");
   return JSON.parse(productInCart);
-};
+}
 
-function showCartNotification(){
-
+function showCartNotification() {
   let productInCart = localStorage.getItem("__cart");
-  let result = JSON.parse(productInCart).map(a => a.quantity);
-  const cartNumber = result.reduce(function(a, b){return a+b;})
-  
-  let iconNotification = document.querySelector('.cart-icon-notification');
+  let result = JSON.parse(productInCart).map((a) => a.quantity);
+  const cartNumber = result.reduce(function (a, b) {
+    return a + b;
+  });
+
+  let iconNotification = document.querySelector(".cart-icon-notification");
   iconNotification.innerHTML = cartNumber;
-  
-  }
 
-
-
+  // let iconNotification = document.querySelector('.ham-burg-notification');
+  // iconNotification.innerHTML = cartNumber;
+}
 
 //// CART PAGE FUNCTIONS
 function addProductCart(item, id) {
@@ -314,7 +291,6 @@ function addProductCart(item, id) {
   cartLS.add(item);
   totalPriceCart();
   showCartNotification();
-
 }
 
 function subProductCart(item, id) {
@@ -322,9 +298,8 @@ function subProductCart(item, id) {
   let quantity = Number(quantityContainer);
   if (quantity > 1) {
     document.getElementById(id).innerHTML = quantity - 1;
-
   }
-  
+
   cartLS.add(item, -1);
   totalPriceCart();
   showCartNotification();
@@ -351,14 +326,14 @@ function mapCart() {
       productInfo.innerHTML = `<div class="cart-card__product-information">
 <div class="cart-card__counter">
 <button class="counter-minus" type="button" onclick='subProductCart(${JSON.stringify(
- item
-)},${item.id})'>
+        item
+      )},${item.id})'>
  <i class="minus fa fa-minus" aria-hidden="true"></i>
 </button>
 <div class="cart-card__quantity" id="${item.id}">${item.quantity}</div>
 <button class="counter-plus" type="button" onclick='addProductCart(${JSON.stringify(
- item
-)},${item.id})'>
+        item
+      )},${item.id})'>
  <i class="minus fa fa-plus" aria-hidden="true"></i>
 </button>
 </div>
@@ -374,14 +349,14 @@ function mapCart() {
     let productCardContainer = document.querySelector(".productCart-info");
     productCardContainer.innerHTML = `<h1 class="empty-cart">Your cart is empty</h1>`;
   }
-};
+}
 
 function totalPriceCart() {
   let total = document.querySelector(".sub-total__price");
   total.innerHTML = "";
 
   let sum = cartLS.total();
-  total.innerHTML = `$${Math.round(sum*100)/100}`;
+  total.innerHTML = `$${Math.round(sum * 100) / 100}`;
 }
 
 function cartPage() {
@@ -454,7 +429,6 @@ function cartPage() {
   mapCart();
 }
 
-
 ///////// PAGES ID///////////////
 let page = document.body.id;
 //////SWITCH FOR PAGES////////
@@ -462,10 +436,10 @@ switch (page) {
   case "products":
     mainPage();
     break;
-    case "cart":
-      getCartItems();
-      cartPage();
+  case "cart":
+    getCartItems();
+    cartPage();
     break;
-};
+}
 
 showCartNotification();
