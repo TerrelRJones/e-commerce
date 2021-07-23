@@ -1,13 +1,5 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden; !important
+ul {
+  list-style-type: none;
 }
 
 .header__container {
@@ -109,11 +101,11 @@ html, body {
 @media (max-width: 500px) {
   body,
   html {
-    height: 100vh;
+    /* height: 100vh; */
     width: 100vw;
     scroll-behavior: smooth;
-    overflow-y: scroll;
-    overflow-x: hidden; !important
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
   }
   .hamburger {
     display: block;
@@ -179,8 +171,7 @@ html, body {
       width: 100vw;
       scroll-behavior: smooth;
       overflow-y: scroll;
-      overflow-x: hidden; !important
-    }
+      overflow-x: hidden;
 
 }
 } 
