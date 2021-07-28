@@ -171,12 +171,12 @@ ul {
   .main-nav__cart-icon {
     display: none;
   }
-
-  @media screen (max-width:760px){
-    body,
-    html {
-      width: 100vw;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-} 
+}
+@media (max-width: 760px) {
+  body,
+  html {
+    width: 100vw;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+}
