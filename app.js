@@ -46,45 +46,45 @@ let cart = [];
 let notification = [];
 
 // // // // Header Navigation // // // //
-let header = document.querySelector(".header__container");
-let mainNav = document.createElement("nav");
+// let header = document.querySelector(".header__container");
+// let mainNav = document.createElement("nav");
 
-header.appendChild(mainNav);
-mainNav.innerHTML = `<nav class="main-nav">
-<div class="main-nav__logo">
-<a href="/" class="logo-btn">
-PRIME.
-</a>
-</div>
-<div class="main-nav__links">
-<ul class="main-nav__link-ul">
-<li>
-<a class="main-nav__link--active" href="./index.html">SHOP</a>
-</li>
-<li>
-<a class="main-nav__link" href="./index.html">PRODUCTS</a>
-</li> 
-<li>
-<a class="main-nav__link" href="./index.html">SALE</a>
-</li> 
-<li>
-<a class="main-nav__link" href="./cart.html">ACCOUNT</a>
-</li> 
-</div>
-<div class="main-nav__cart-icon">
-<a href="./cart.html">
-<i id="cart-icon" class="fas fa-shopping-cart">
-<div class="cart-icon-notification" id="cart-icon-notification">0</div>
-</i>
-</a>
-</div>
-<div class="hamburger" onclick="hamburgerMenu()">
-  <div class="line"></div>
-  <div class="line"></div>
-  <div class="line"></div>
-</div>
-</nav>
-</div>`;
+// header.appendChild(mainNav);
+// mainNav.innerHTML = `<nav class="main-nav">
+// <div class="main-nav__logo">
+// <a href="/" class="logo-btn">
+// PRIME.
+// </a>
+// </div>
+// <div class="main-nav__links">
+// <ul class="main-nav__link-ul">
+// <li>
+// <a class="main-nav__link--active" href="./index.html">SHOP</a>
+// </li>
+// <li>
+// <a class="main-nav__link" href="./index.html">PRODUCTS</a>
+// </li>
+// <li>
+// <a class="main-nav__link" href="./index.html">SALE</a>
+// </li>
+// <li>
+// <a class="main-nav__link" href="./cart.html">ACCOUNT</a>
+// </li>
+// </div>
+// <div class="main-nav__cart-icon">
+// <a href="./cart.html">
+// <i id="cart-icon" class="fas fa-shopping-cart">
+// <div class="cart-icon-notification" id="cart-icon-notification">0</div>
+// </i>
+// </a>
+// </div>
+// <div class="hamburger" onclick="hamburgerMenu()">
+//   <div class="line"></div>
+//   <div class="line"></div>
+//   <div class="line"></div>
+// </div>
+// </nav>
+// </div>`;
 
 //MOBILE MENU TOGGLE
 let mobileMenu = document.querySelector(".main-nav__links");
