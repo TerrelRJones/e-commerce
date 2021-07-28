@@ -22,7 +22,43 @@
     />
   </head>
   <body id="cart">
-    <div class="header__container"></div>
+    <div class="header__container">
+      <nav class="main-nav">
+        <div class="main-nav__logo">
+        <a href="/" class="logo-btn">
+        PRIME.
+        </a>
+        </div>
+        <div class="main-nav__links">
+        <ul class="main-nav__link-ul">
+        <li>
+        <a class="main-nav__link--active" href="./index.html">SHOP</a>
+        </li>
+        <li>
+        <a class="main-nav__link" href="./index.html">PRODUCTS</a>
+        </li> 
+        <li>
+        <a class="main-nav__link" href="./index.html">SALE</a>
+        </li> 
+        <li>
+        <a class="main-nav__link" href="./cart.html">ACCOUNT</a>
+        </li> 
+        </div>
+        <div class="main-nav__cart-icon">
+        <a href="./cart.html">
+        <i id="cart-icon" class="fas fa-shopping-cart">
+        <div class="cart-icon-notification" id="cart-icon-notification">0</div>
+        </i>
+        </a>
+        </div>
+        <div class="hamburger" onclick="hamburgerMenu()">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        </nav>
+        </div>
+    </div>
 
     <div class="container__cart-page"></div>
 
